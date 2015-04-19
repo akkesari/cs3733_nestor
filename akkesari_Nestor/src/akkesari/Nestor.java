@@ -6,6 +6,7 @@ import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.common.model.Pile;
 import ks.common.view.BuildablePileView;
+import ks.common.view.CardImages;
 import ks.common.view.ColumnView;
 import ks.common.view.DeckView;
 import ks.common.view.IntegerView;
@@ -43,7 +44,6 @@ public class Nestor extends Solitaire {
 		initializeControllers();
 
 		// prepare game by creating the deck etc
-
 		updateScore(0);
 		updateNumberCardsLeft (52);
 		
@@ -55,7 +55,18 @@ public class Nestor extends Solitaire {
 	}
 
 	private void initializeView() {
-		// TODO Auto-generated method stub
+		// Initialize the view
+		CardImages ci = getCardImages();
+
+		deckView = new DeckView (deck);
+		deckView.setBounds (20,20, ci.getWidth(), ci.getHeight());
+		container.addWidget (deckView);
+
+		// create BuildablePileViews, one after the other (default to 13 full cards -- more than we'll need)
+		
+		wastePileView = new PileView(wastePile);
+		pileViews[pileNum].setBounds (20*pileNum + (pileNum-1)*ci.getWidth(), ci.getHeight() + 50, ci.getWidth(), 13*ci.getHeight());
+		container.addWidget (pileViews[pileNum]);
 		
 	}
 
@@ -79,7 +90,9 @@ public class Nestor extends Solitaire {
 		reserve = new BuildablePile("reserve");
 		model.addElement(reserve);
 		
-		
+		// Initialize the score and the number of cards.
+		updateScore(0);
+		updateNumberCardsLeft (52);
 		
 		
 	}
