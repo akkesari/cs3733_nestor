@@ -60,7 +60,26 @@ public class Nestor extends Solitaire {
 	}
 
 	private void initializeModel(int seed) {
-		// TODO Auto-generated method stub
+		// Create and shuffle deck with a random seed. Add it to the model.
+		deck = new Deck("deck");
+		deck.create(seed);
+		model.addElement (deck);   // add to our model (as defined within our superclass).
+		
+		// Create a waste pile and add it to the model..
+		wastePile = new Pile("waste");
+		model.addElement(wastePile);
+		
+		// Create the 4 columns and add them to the model.
+		for(int i = 1; i<=4; i++){
+			columns[i] = new Column("column" + i);
+			model.addElement(columns[i]);
+		}
+		
+		// Create the reserve pile and add it to the model.
+		reserve = new BuildablePile("reserve");
+		model.addElement(reserve);
+		
+		
 		
 	}
 
